@@ -20,14 +20,8 @@ echo "findOneBy result + DUMP \r\n";
 echo "-----------------------\r\n";
 // recherche exacte
 $foundSerie = $repository->findOneBy(array('serieName' => 'plipplop'));
-
 // alternativement via "__class magic"
 // $foundSerie = $repository->findOneBySerieName('plipplop');
-
-// pour en recup plusieurs
-// $foundSeries = $repository->findBy(array('serieName' => 'plipplop');
-// $foundSeries = $repository->findBySerieName('plipplop');
-
 \Doctrine\Common\Util\Debug::dump($foundSerie);
 
 
@@ -39,6 +33,7 @@ $dqlSeriesNameSearchPattern = "88";
 $query = $repository->createQueryBuilder('s')
 	->where('s.serieName LIKE :name') // les contraintes
 	->setParameter('name', '%'. $dqlSeriesNameSearchPattern .'%') // remplacer :name par l'expression '%88%'
+	->setMaxResults( 5 )
 	->getQuery();
 $dqlSeries = $query->getResult();
 
@@ -49,7 +44,8 @@ echo "-----------------------\r\n";
 echo "findAll result DUMP \r\n";
 echo "-----------------------\r\n";
 // retourne les tous
-$series = $repository->findAll();
+//$series = $repository->findAll();
+$series = $repository->findBy(array(), array('id' => 'DESC'),5);
 // alternativement
 // $seriesList = $repository->findAll('Tvtruc\Entities\Series');
 

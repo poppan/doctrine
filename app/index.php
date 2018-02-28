@@ -4,3 +4,6 @@
 <p>
 <a href="queries.php">teste les retours</a>
 </p>
+<p>
+    <a href="../api">API REST</a>
+</p>
